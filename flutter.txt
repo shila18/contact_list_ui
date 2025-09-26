@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ContactListScreen(),
+    );
+  }
+}
+
+class ContactListScreen extends StatelessWidget {
+  final List<Map<String, String>> contacts = [
+    {"name": "Jawad", "phone": "01787-777777"},
+    {"name": "Ferdaus", "phone": "01745-777777"},
+    {"name": "Hasan", "phone": "01745-777777"},
+    {"name": "Hasan", "phone": "01745-777777"},
+    {"name": "Hasan", "phone": "01745-777777"},
+  ];
+
+  ContactListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        title: const Text("Contact List"),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            // Name Input
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: "Enter Name",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Phone Input
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: "Enter Phone Number",
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+            const SizedBox(height: 10),
+
+            // Add Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text("Add"),
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Contact List
+            Expanded(
+              child: ListView.builder(
+                itemCount: contacts.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: ListTile(
+                      leading: const Icon(Icons.account_circle, color: Colors.brown, size: 40),
+                      title: Text(
+                        contacts[index]["name"]!,
+                        style: TextStyle(
+                          color: index == 0 ? Colors.red : Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      subtitle: Text(contacts[index]["phone"]!),
+                      trailing: const Icon(Icons.phone, color: Colors.blue),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
